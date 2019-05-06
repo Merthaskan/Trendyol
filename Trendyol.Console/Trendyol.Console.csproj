@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Trendyol.Bussines\Trendyol.Business.csproj" />
+    <ProjectReference Include="..\Trendyol.Business\Trendyol.Business.csproj" />
   </ItemGroup>
 
 </Project>
