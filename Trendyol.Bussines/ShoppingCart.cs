@@ -10,16 +10,15 @@ using System.Runtime.CompilerServices;
 namespace Trendyol.Bussines
 {
     public class ShoppingCart : IShoppingCart
-    {   
+    {
         internal Dictionary<Product, int> ProductQuantities { get; set; }
-        internal List<Coupon> Coupons { get; set; }
+        internal Coupon Coupon { get; set; }
         internal List<Campaign> Campaigns { get; set; }
         private IDeliveryCostCalculator DeliveryCostCalculator { get; set; }
         public ShoppingCart(IDeliveryCostCalculator deliveryCostCalculator)
         {
             ProductQuantities = new Dictionary<Product, int>();
             Campaigns = new List<Campaign>();
-            Coupons = new List<Coupon>();
             DeliveryCostCalculator = deliveryCostCalculator;
         }
 
@@ -36,48 +35,11 @@ namespace Trendyol.Bussines
             }
         }
 
-        public double GetCampaignDiscount()
+        #region CampaingDiscountMethods
+        public void ApplyDiscounts(params Campaign[] campaigns)
         {
-            return ApplyCampaign(GetTotalAmount());
+            Campaigns.AddRange(campaigns);
         }
-
-        public double GetCouponDiscount()
-        {
-            return ApplyCoupon(GetTotalAmount());
-        }
-
-        public double GetDeliveryCost()
-        {
-            return DeliveryCostCalculator.CalculateFor(this);
-        }
-
-        public double GetTotalAmount()
-        {
-            return ProductQuantities.Sum(e => e.Key.Price * e.Value);
-        }
-
-        private double GetProductPrice(Product product)
-        {
-            if (ProductQuantities.TryGetValue(product, out int quantity))
-            {
-                return product.Price * quantity;
-            }
-            throw new KeyNotFoundException(nameof(product));
-
-        }
-        public double GetTotalAmountAfterDiscounts()
-        {
-            double amount = GetTotalAmount();
-            amount -= ApplyCampaign(amount);
-            amount -= ApplyCoupon(amount);
-            return amount;
-        }
-
-        private Dictionary<Product, int> GetProductsByCategory(string categoryTitle)
-        {
-            return ProductQuantities.Where(e => e.Key.Category.Title == categoryTitle).ToDictionary(e => e.Key, e => e.Value);
-        }
-
         private double ApplyCampaign(double totalAmount)
         {
             double discountAmount = 0;
@@ -113,35 +75,71 @@ namespace Trendyol.Bussines
             }
             return discountAmount;
         }
-
+        public double GetCampaignDiscount()
+        {
+            return ApplyCampaign(GetTotalAmount());
+        }
+        #endregion
+        #region CouponDiscountMethods
+        public void ApplyCoupon(Coupon coupon)
+        {
+            Coupon = coupon;
+        }
         private double ApplyCoupon(double totalAmount)
         {
             double discountAmount = 0;
-            foreach (Coupon coupon in Coupons)
+
+            if (Coupon != null && totalAmount >= Coupon.MinimumAmount)
             {
-                if (totalAmount >= coupon.MinimumAmount)
+                switch (Coupon.DiscountType)
                 {
-                    switch (coupon.DiscountType)
-                    {
-                        case DiscountType.Rate:
-                            discountAmount += totalAmount / coupon.DiscountAmount;
-                            break;
-                        case DiscountType.Amount:
-                            discountAmount += coupon.DiscountAmount;
-                            break;
-                        default:
-                            break;
-                    }
+                    case DiscountType.Rate:
+                        discountAmount = totalAmount * (Coupon.DiscountAmount / 100);
+                        break;
+                    case DiscountType.Amount:
+                        discountAmount = Coupon.DiscountAmount;
+                        break;
+                    default:
+                        break;
                 }
             }
             return discountAmount;
         }
-
-        public void ApplyDiscounts(params Campaign[] campaigns)
+        public double GetCouponDiscount()
         {
-            Campaigns.AddRange(campaigns);
+            return ApplyCoupon(GetTotalAmount());
         }
+        #endregion
 
+
+        public double GetDeliveryCost()
+        {
+            return DeliveryCostCalculator.CalculateFor(this);
+        }
+        public double GetTotalAmount()
+        {
+            return ProductQuantities.Sum(e => e.Key.Price * e.Value);
+        }
+        private double GetProductPrice(Product product)
+        {
+            if (ProductQuantities.TryGetValue(product, out int quantity))
+            {
+                return product.Price * quantity;
+            }
+            throw new KeyNotFoundException(nameof(product));
+
+        }
+        public double GetTotalAmountAfterDiscounts()
+        {
+            double amount = GetTotalAmount();
+            amount -= ApplyCampaign(amount);
+            amount -= ApplyCoupon(amount);
+            return amount;
+        }
+        private Dictionary<Product, int> GetProductsByCategory(string categoryTitle)
+        {
+            return ProductQuantities.Where(e => e.Key.Category.Title == categoryTitle).ToDictionary(e => e.Key, e => e.Value);
+        }
         public string Print()
         {
             StringBuilder builder = new StringBuilder();
@@ -156,17 +154,14 @@ namespace Trendyol.Bussines
             builder.Append($"Total Amount: {GetTotalAmount()} Delivery Cost: {GetDeliveryCost()}");
             return builder.ToString();
         }
-
         public int GetNumberOfDeliveries()
         {
             return ProductQuantities.GroupBy(e => e.Key.Category.Title).Count();
         }
-
         public int GetNumberOfProducts()
         {
             return ProductQuantities.Count;
         }
-
         public bool RemoveItem(Product product, int amount)
         {
             Product removeProduct = ProductQuantities.Keys.FirstOrDefault(p => p.Title == product.Title);
@@ -182,5 +177,6 @@ namespace Trendyol.Bussines
             }
             return false;
         }
+
     }
 }

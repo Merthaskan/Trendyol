@@ -14,6 +14,7 @@ namespace Trendyol.Bussines.Interfaces
         void AddItem(Product product, int amount);
         bool RemoveItem(Product product, int amount);
         void ApplyDiscounts(params Campaign[] campaigns);
+        void ApplyCoupon(Coupon coupon);
         int GetNumberOfDeliveries();
         int GetNumberOfProducts();
         string Print();
