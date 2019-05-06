@@ -90,7 +90,7 @@ namespace Trendyol.Bussines
                     {
                         case DiscountType.Rate:
                             {
-                                double da = totalAmount / campaign.DiscountAmount;
+                                double da = totalAmount * (campaign.DiscountAmount / 100);
                                 if (da > discountAmount)
                                 {
                                     discountAmount = da;
