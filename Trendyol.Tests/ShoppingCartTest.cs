@@ -1,6 +1,7 @@
 using Moq;
 using NUnit.Framework;
 using Trendyol.Bussines;
+using Trendyol.Bussines.Enums;
 using Trendyol.Bussines.Interfaces;
 
 namespace Tests
@@ -23,7 +24,7 @@ namespace Tests
             Product product = new Product("Apple", 100.0, new Category("Fruit"));
 
             cart.AddItem(product, 5);
-            
+
             Assert.AreEqual(1, cart.ProductQuantities.Count);
             Assert.IsTrue(cart.ProductQuantities.ContainsKey(product));
             Assert.That(cart.ProductQuantities[product] == 5);
@@ -224,6 +225,125 @@ namespace Tests
             cart.AddItem(p1, 5);
             cart.AddItem(p2, 1);
             Assert.That(cart.GetTotalAmount() == 7);
+        }
+        #endregion
+        #region GetCampaignDiscount
+        [Test]
+        public void GetCampaignDiscount_NoCampaing_ReturnsZero()
+        {
+            Assert.That(cart.GetCampaignDiscount() == 0);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingOneProductOnCategoryGreaterThanMinimumAmount_ReturnsFive()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            cart.AddItem(p1, 3);
+
+            Campaign campaign = new Campaign(category, minimumAmount: 2, discountAmount: 5, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+            Assert.That(cart.GetCampaignDiscount() == 5);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingOneProductOnCategoryLessThanMinimumAmount_ReturnsZero()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            cart.AddItem(p1, 3);
+
+            Campaign campaign = new Campaign(category, minimumAmount: 5, discountAmount: 5, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+            Assert.That(cart.GetCampaignDiscount() == 0);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingTwoProductOnCategoryGreaterThanMinimumAmount_ReturnsTen()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            Product p2 = new Product("Orange", 50, category);
+
+            cart.AddItem(p1, 3);
+            cart.AddItem(p2, 2);
+
+
+            Campaign campaign = new Campaign(category, minimumAmount: 5, discountAmount: 10, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+
+            Assert.That(cart.GetCampaignDiscount() == 10);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingTwoProductOnCategoryLessThanMinimumAmount_ReturnsZero()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            Product p2 = new Product("Orange", 50, category);
+
+            cart.AddItem(p1, 3);
+            cart.AddItem(p2, 2);
+
+
+            Campaign campaign = new Campaign(category, minimumAmount: 6, discountAmount: 10, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+
+            Assert.That(cart.GetCampaignDiscount() == 0);
+        }
+
+        [Test]
+        public void GetCampaignDiscount_OneCampaingWithRateOneProductOnCategoryGreaterThanMinimumAmount_ReturnsFifteen()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            cart.AddItem(p1, 3);
+
+            double expected = cart.GetTotalAmount() * 0.05;
+
+
+            Campaign campaign = new Campaign(category, minimumAmount: 2, discountAmount: 5, DiscountType.Rate);
+            cart.ApplyDiscounts(campaign);
+            Assert.That(cart.GetCampaignDiscount() == expected);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingWithRateOneProductOnCategoryLessThanMinimumAmount_ReturnsZero()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            cart.AddItem(p1, 3);
+
+            Campaign campaign = new Campaign(category, minimumAmount: 5, discountAmount: 5, DiscountType.Rate);
+            cart.ApplyDiscounts(campaign);
+            Assert.That(cart.GetCampaignDiscount() == 0);
+        }
+        [Test]
+        public void GetCampaignDiscount_OneCampaingWithTwoProductOnCategoryGreaterThanMinimumAmount_ReturnsForty()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            Product p2 = new Product("Orange", 50, category);
+
+            cart.AddItem(p1, 3);
+            cart.AddItem(p2, 2);
+
+            double expected = cart.GetTotalAmount() * 0.1;
+
+            Campaign campaign = new Campaign(category, minimumAmount: 5, discountAmount: 10, DiscountType.Rate);
+            cart.ApplyDiscounts(campaign);
+
+            Assert.That(cart.GetCampaignDiscount() == expected);
+        }
+        public void GetCampaignDiscount_OneCampaingWithRateTwoProductOnCategoryLessThanMinimumAmount_ReturnsZero()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 100, category);
+            Product p2 = new Product("Orange", 50, category);
+
+            cart.AddItem(p1, 3);
+            cart.AddItem(p2, 2);
+
+
+            Campaign campaign = new Campaign(category, minimumAmount: 6, discountAmount: 10, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+
+            Assert.That(cart.GetCampaignDiscount() == 0);
         }
         #endregion
 
