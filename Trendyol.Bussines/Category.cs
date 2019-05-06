@@ -14,5 +14,10 @@ namespace Trendyol.Bussines
         {
             Title = title;
         }
+
+        public Category(string title, Category parentCategory) : this(title)
+        {
+            ParentCategory = parentCategory;
+        }
     }
 }

@@ -111,7 +111,6 @@ namespace Trendyol.Bussines
         }
         #endregion
 
-
         public double GetDeliveryCost()
         {
             return DeliveryCostCalculator.CalculateFor(this);
@@ -144,14 +143,16 @@ namespace Trendyol.Bussines
         {
             StringBuilder builder = new StringBuilder();
             var products = ProductQuantities.GroupBy(p => p.Key.Category.Title).ToDictionary(e => e.Key, e => e.ToList());
+            builder.AppendLine($"{"Category Name",15}  {"Product Name",15}  {"Quantity",15}  {"Unit Price",15}  {"Total Price",15}");
             foreach (var item in products)
             {
                 foreach (var p in item.Value)
                 {
-                    builder.Append($"{item.Key} {p.Key.Title} {p.Value} {p.Key.Price} {GetProductPrice(p.Key)}");
+                    builder.AppendLine($"{item.Key,15} {p.Key.Title,15} {p.Value,15} {p.Key.Price,15} {GetProductPrice(p.Key),15}\t");
                 }
             }
-            builder.Append($"Total Amount: {GetTotalAmount()} Delivery Cost: {GetDeliveryCost()}");
+            builder.AppendLine($"\nTotal Amount: {GetTotalAmount()}\nTotal Amount After Discounts: {GetTotalAmountAfterDiscounts()}" +
+                $"\nTotal Discount: {GetTotalAmount() - GetTotalAmountAfterDiscounts()}\nDelivery Cost: {GetDeliveryCost()}");
             return builder.ToString();
         }
         public int GetNumberOfDeliveries()

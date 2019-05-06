@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendyol.Bussines", "Trendy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendyol.Tests", "Trendyol.Tests\Trendyol.Tests.csproj", "{BCD364BA-BB77-47E6-9F6F-194B4C8342DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendyol.Console", "Trendyol.Console\Trendyol.Console.csproj", "{F143FA2E-EC0D-47BF-B665-891E56974691}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BCD364BA-BB77-47E6-9F6F-194B4C8342DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD364BA-BB77-47E6-9F6F-194B4C8342DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD364BA-BB77-47E6-9F6F-194B4C8342DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F143FA2E-EC0D-47BF-B665-891E56974691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F143FA2E-EC0D-47BF-B665-891E56974691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F143FA2E-EC0D-47BF-B665-891E56974691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F143FA2E-EC0D-47BF-B665-891E56974691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
