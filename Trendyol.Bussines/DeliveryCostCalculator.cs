@@ -18,6 +18,10 @@ namespace Trendyol.Bussines
         }
         public double CalculateFor(IShoppingCart cart)
         {
+            if (cart == null)
+            {
+                throw new ArgumentNullException($"{nameof(cart)} is Null");
+            }
             int numberOfDeliveries = cart.GetNumberOfDeliveries();
             int numberOfProducts = cart.GetNumberOfProducts();
             return (CostPerDelivery * numberOfDeliveries) + (CostPerProduct * numberOfProducts) + FixedCost;
