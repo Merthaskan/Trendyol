@@ -23,7 +23,7 @@ namespace Tests
             Product product = new Product("Apple", 100.0, new Category("Fruit"));
 
             cart.AddItem(product, 5);
-
+            
             Assert.AreEqual(1, cart.ProductQuantities.Count);
             Assert.IsTrue(cart.ProductQuantities.ContainsKey(product));
             Assert.That(cart.ProductQuantities[product] == 5);

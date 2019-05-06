@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using Trendyol.Bussines.Enums;
 using Trendyol.Bussines.Interfaces;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Trendyol.Tests")]
 namespace Trendyol.Bussines
 {
     public class ShoppingCart : IShoppingCart
-    {
-        public Dictionary<Product, int> ProductQuantities { get; set; }
-        public List<Coupon> Coupons { get; set; }
-        public List<Campaign> Campaigns { get; set; }
+    {   
+        internal Dictionary<Product, int> ProductQuantities { get; set; }
+        internal List<Coupon> Coupons { get; set; }
+        internal List<Campaign> Campaigns { get; set; }
         private IDeliveryCostCalculator DeliveryCostCalculator { get; set; }
         public ShoppingCart(IDeliveryCostCalculator deliveryCostCalculator)
         {
@@ -25,7 +27,6 @@ namespace Trendyol.Bussines
         {
             if (product != null && amount > 0)
             {
-
                 if (ProductQuantities.TryGetValue(product, out int productAmount))
                 {
                     ProductQuantities[product] = productAmount + amount;
@@ -33,17 +34,16 @@ namespace Trendyol.Bussines
                 }
                 ProductQuantities.Add(product, amount);
             }
-
         }
 
         public double GetCampaignDiscount()
         {
-            return applyCampaign(GetTotalAmount());
+            return ApplyCampaign(GetTotalAmount());
         }
 
         public double GetCouponDiscount()
         {
-            return applyCoupon(GetTotalAmount());
+            return ApplyCoupon(GetTotalAmount());
         }
 
         public double GetDeliveryCost()
@@ -56,7 +56,7 @@ namespace Trendyol.Bussines
             return ProductQuantities.Sum(e => e.Key.Price * e.Value);
         }
 
-        private double GetTotalPrice(Product product)
+        private double GetProductPrice(Product product)
         {
             if (ProductQuantities.TryGetValue(product, out int quantity))
             {
@@ -68,8 +68,8 @@ namespace Trendyol.Bussines
         public double GetTotalAmountAfterDiscounts()
         {
             double amount = GetTotalAmount();
-            amount -= applyCampaign(amount);
-            amount -= applyCoupon(amount);
+            amount -= ApplyCampaign(amount);
+            amount -= ApplyCoupon(amount);
             return amount;
         }
 
@@ -78,7 +78,7 @@ namespace Trendyol.Bussines
             return ProductQuantities.Where(e => e.Key.Category.Title == categoryTitle).ToDictionary(e => e.Key, e => e.Value);
         }
 
-        private double applyCampaign(double totalAmount)
+        private double ApplyCampaign(double totalAmount)
         {
             double discountAmount = 0;
             foreach (Campaign campaign in Campaigns)
@@ -114,7 +114,7 @@ namespace Trendyol.Bussines
             return discountAmount;
         }
 
-        private double applyCoupon(double totalAmount)
+        private double ApplyCoupon(double totalAmount)
         {
             double discountAmount = 0;
             foreach (Coupon coupon in Coupons)
@@ -150,23 +150,13 @@ namespace Trendyol.Bussines
             {
                 foreach (var p in item.Value)
                 {
-                    builder.Append($"{item.Key} {p.Key.Title} {p.Value} {p.Key.Price} {GetTotalPrice(p.Key)}");
+                    builder.Append($"{item.Key} {p.Key.Title} {p.Value} {p.Key.Price} {GetProductPrice(p.Key)}");
                 }
             }
             builder.Append($"Total Amount: {GetTotalAmount()} Delivery Cost: {GetDeliveryCost()}");
             return builder.ToString();
         }
 
-        //private List<string> GetCategories()
-        //{
-        //    HashSet<string> categorySet = new HashSet<string>();
-        //    var products = ProductQuantities.Keys.ToList();
-        //    foreach (Product product in products)
-        //    {
-        //        categorySet.Add(product.Category.Title);
-        //    }
-        //    return categorySet.ToList();
-        //}
         public int GetNumberOfDeliveries()
         {
             return ProductQuantities.GroupBy(e => e.Key.Category.Title).Count();
