@@ -6,9 +6,9 @@ Bu proje trendyol iş görüşmesi için gönderilmiş case study projesi için 
 Aşağıda projenin yapısı, ön koşullar ve kurulum anlatılmaktadır.
 
 ## Proje Yapısı
-* [Trendyol.Bussines](./Trendyol.Bussines/README.md)
-* [Trendyol.Tests](./Trendyol.Tests/README.md)
-* [Trendyol.Console](./Trendyol.Console/README.md)
+* [Trendyol.Bussines](Trendyol.Bussines/README.md)
+* [Trendyol.Tests](Trendyol.Tests/README.md)
+* [Trendyol.Console](Trendyol.Console/README.md)
 
 ## Ön Koşullar
 * [.Net Core SDK 2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
