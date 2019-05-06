@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Trendyol.Business.ShoppingCart" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAgAAAAAIAAQIEAAAAgCEA0AQEAIQQACAEAAA=</HashCode>
+      <FileName>ShoppingCart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Trendyol.Business.Product">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAEAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trendyol.Business.Discount">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Discount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trendyol.Business.DeliveryCostCalculator" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>DeliveryCostCalculator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Trendyol.Business.Coupon">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Coupon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trendyol.Business.Category">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Trendyol.Business.Campaign">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Campaign.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Trendyol.Business.Interfaces.IDeliveryCostCalculator">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDeliveryCostCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Trendyol.Business.Interfaces.IShoppingCart">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAgAAAAAAAAAIAAAAAgCAAkAQEAAAQACAEAAA=</HashCode>
+      <FileName>Interfaces\IShoppingCart.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Trendyol.Business.Enums.DiscountType">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\DiscountType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
