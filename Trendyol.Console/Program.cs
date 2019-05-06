@@ -1,7 +1,7 @@
 ﻿using System;
-using Trendyol.Bussines;
-using Trendyol.Bussines.Enums;
-using Trendyol.Bussines.Interfaces;
+using Trendyol.Business;
+using Trendyol.Business.Enums;
+using Trendyol.Business.Interfaces;
 
 namespace Trendyol.Console
 {

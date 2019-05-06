@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Trendyol.Bussines.Enums;
-using Trendyol.Bussines.Interfaces;
+using Trendyol.Business.Enums;
+using Trendyol.Business.Interfaces;
 
-namespace Trendyol.Bussines
+namespace Trendyol.Business
 {
     public class Campaign : Discount
     {

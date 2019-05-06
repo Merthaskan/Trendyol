@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Trendyol.Bussines.Enums;
+using Trendyol.Business.Enums;
 
-namespace Trendyol.Bussines
+namespace Trendyol.Business
 {
     public class Coupon : Discount
     {

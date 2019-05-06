@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Trendyol.Bussines.Interfaces;
+using Trendyol.Business.Interfaces;
 
-namespace Trendyol.Bussines
+namespace Trendyol.Business
 {
     public class DeliveryCostCalculator : IDeliveryCostCalculator
     {

@@ -1,8 +1,8 @@
 using Moq;
 using NUnit.Framework;
-using Trendyol.Bussines;
-using Trendyol.Bussines.Enums;
-using Trendyol.Bussines.Interfaces;
+using Trendyol.Business;
+using Trendyol.Business.Enums;
+using Trendyol.Business.Interfaces;
 
 namespace Tests
 {

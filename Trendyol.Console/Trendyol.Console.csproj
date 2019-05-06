@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Trendyol.Bussines\Trendyol.Bussines.csproj" />
+    <ProjectReference Include="..\Trendyol.Bussines\Trendyol.Business.csproj" />
   </ItemGroup>
 
 </Project>

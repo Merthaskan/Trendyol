@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Trendyol.Bussines.Enums;
-using Trendyol.Bussines.Interfaces;
+using Trendyol.Business.Enums;
+using Trendyol.Business.Interfaces;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Trendyol.Tests")]
-namespace Trendyol.Bussines
+namespace Trendyol.Business
 {
     public class ShoppingCart : IShoppingCart
     {

@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Moq;
-using Trendyol.Bussines.Interfaces;
-using Trendyol.Bussines;
+using Trendyol.Business.Interfaces;
+using Trendyol.Business;
 using System;
 
 namespace Trendyol.Tests

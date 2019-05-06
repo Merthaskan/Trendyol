@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Trendyol.Bussines.Enums
+namespace Trendyol.Business.Enums
 {
     public enum DiscountType
     {

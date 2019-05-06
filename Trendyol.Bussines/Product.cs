@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Trendyol.Bussines
+namespace Trendyol.Business
 {
     public class Product
     {

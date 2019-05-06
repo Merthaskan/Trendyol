@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Trendyol.Bussines.Interfaces
+namespace Trendyol.Business.Interfaces
 {
     public interface IDeliveryCostCalculator
     {
