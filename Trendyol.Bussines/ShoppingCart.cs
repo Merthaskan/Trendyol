@@ -51,10 +51,9 @@ namespace Trendyol.Bussines
             return DeliveryCostCalculator.CalculateFor(this);
         }
 
-        //Yanlış
         public double GetTotalAmount()
         {
-            return ProductQuantities.Keys.Sum(p => p.Price);
+            return ProductQuantities.Sum(e => e.Key.Price * e.Value);
         }
 
         private double GetTotalPrice(Product product)

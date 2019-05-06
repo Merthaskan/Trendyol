@@ -99,7 +99,7 @@ namespace Tests
         public void GetNumberOfProduct_AddValidProduct_ReturnsOne()
         {
             Product p1 = new Product("Apple", 100, new Category("Fruit"));
-            cart.AddItem(p1,5);
+            cart.AddItem(p1, 5);
             Assert.AreEqual(1, cart.GetNumberOfProducts());
         }
         [Test]
@@ -125,12 +125,12 @@ namespace Tests
         #region GetNumberOfDeliveries
         [Test]
         public void GetNumberOfDeliveries_EmptyCart_ReturnsZero() => Assert.That(cart.GetNumberOfDeliveries() == 0);
-        
+
         [Test]
         public void GetNumberOfDeliveries_OneProduct_ReturnsOne()
         {
             Product p1 = new Product("Apple", 100, new Category("Fruit"));
-            cart.AddItem(p1,5);
+            cart.AddItem(p1, 5);
             Assert.That(cart.GetNumberOfDeliveries() == 1);
         }
 
@@ -199,6 +199,31 @@ namespace Tests
             cart.AddItem(p2, 6);
             Assert.That(cart.RemoveItem(p1, 5));
             Assert.That(cart.GetNumberOfProducts() == 1);
+        }
+        #endregion
+        #region GetTotalAmount
+        [Test]
+        public void GetTotalAmount_EmptyList_ReturnsZero()
+        {
+            Assert.That(cart.GetTotalAmount() == 0);
+        }
+        [Test]
+        public void GetTotalAmount_OneProduct_ReturnsFive()
+        {
+            Product p1 = new Product("Apple", 1, new Category("Fruit"));
+            cart.AddItem(p1, 5);
+            Assert.That(cart.GetTotalAmount() == 5);
+        }
+        [Test]
+        public void GetTotalAmount_TwoProduct_ReturnsSeven()
+        {
+            Category category = new Category("Fruit");
+            Product p1 = new Product("Apple", 1, category);
+            Product p2 = new Product("Orange", 2, category);
+
+            cart.AddItem(p1, 5);
+            cart.AddItem(p2, 1);
+            Assert.That(cart.GetTotalAmount() == 7);
         }
         #endregion
 
