@@ -245,6 +245,19 @@ namespace Tests
             Assert.That(cart.GetCampaignDiscount() == 5);
         }
         [Test]
+        public void GetCampaignDiscount_OneCampaingForParentOneProductOnSubCategoryGreaterThanMinimumAmount_ReturnsFive()
+        {
+            Category category = new Category("Shoe");
+            Category sportShoe = new Category("Sport Shoe",category);
+
+            Product p1 = new Product("Sport Shoe", 100, sportShoe);
+            cart.AddItem(p1, 3);
+
+            Campaign campaign = new Campaign(category, minimumAmount: 2, discountAmount: 5, DiscountType.Amount);
+            cart.ApplyDiscounts(campaign);
+            Assert.That(cart.GetCampaignDiscount() == 5);
+        }
+        [Test]
         public void GetCampaignDiscount_OneCampaingOneProductOnCategoryLessThanMinimumAmount_ReturnsZero()
         {
             Category category = new Category("Fruit");

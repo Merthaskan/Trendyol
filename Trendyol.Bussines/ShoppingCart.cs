@@ -45,7 +45,7 @@ namespace Trendyol.Bussines
             double discountAmount = 0;
             foreach (Campaign campaign in Campaigns)
             {
-                Dictionary<Product, int> product = GetProductsByCategory(campaign.Category.Title);
+                Dictionary<Product, int> product = GetProductsByCategory(campaign.Category);
                 if (product.Values.Sum() >= campaign.MinimumAmount)
                 {
                     switch (campaign.DiscountType)
@@ -135,9 +135,23 @@ namespace Trendyol.Bussines
             amount -= ApplyCoupon(amount);
             return amount;
         }
-        private Dictionary<Product, int> GetProductsByCategory(string categoryTitle)
+
+        private bool IsSubCategory(Category parent, Category sub)
         {
-            return ProductQuantities.Where(e => e.Key.Category.Title == categoryTitle).ToDictionary(e => e.Key, e => e.Value);
+            Category temp = sub.ParentCategory;
+            while (temp != null)
+            {
+                if (temp == parent)
+                {
+                    return true;
+                }
+                temp = temp.ParentCategory;
+            }
+            return false;
+        }
+        private Dictionary<Product, int> GetProductsByCategory(Category category)
+        {
+            return ProductQuantities.Where(e => e.Key.Category == category || IsSubCategory(category, e.Key.Category)).ToDictionary(e => e.Key, e => e.Value);
         }
         public string Print()
         {
