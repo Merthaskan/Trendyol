@@ -1,4 +1,4 @@
-# Trendyol Case Study: Shopping Cart
+# Trendyol Case Study: Shopping Cart [![Build Status](https://travis-ci.com/Merthaskan/Trendyol.svg?branch=master)](https://travis-ci.com/Merthaskan/Trendyol)
 
 Bu proje trendyol iş görüşmesi için gönderilmiş case study projesi için yapılmıştır.
 
