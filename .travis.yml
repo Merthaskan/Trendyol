@@ -1,0 +1,11 @@
+language: csharp
+dist: trusty
+mono: none
+dotnet: 2.2.0
+
+install:
+- dotnet restore
+
+script:
+- dotnet build
+- dotnet test Trendyol.Tests/Trendyol.Tests.csproj
